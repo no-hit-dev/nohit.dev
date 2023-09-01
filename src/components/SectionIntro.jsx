@@ -13,7 +13,7 @@ export function SectionIntro({
 }) {
   return (
     <Container {...props}>
-      <FadeIn className="max-w-2xl">
+      <FadeIn className="max-w-5xl">
         <h2>
           {eyebrow && (
             <>
@@ -30,7 +30,7 @@ export function SectionIntro({
           )}
           <span
             className={clsx(
-              'block font-display tracking-tight [text-wrap:balance]',
+              'block font-display tracking-tight [text-wrap:balance] sm:whitespace-pre-line',
               smaller
                 ? 'text-2xl font-semibold'
                 : 'text-4xl font-medium sm:text-5xl',
