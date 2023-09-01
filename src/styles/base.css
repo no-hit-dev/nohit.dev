@@ -8,3 +8,16 @@
   font-stretch: 75% 125%;
   src: url('../fonts/Mona-Sans.var.woff2') format('woff2');
 }
+
+* {
+  scroll-behavior: smooth;
+}
+/* Firefox */
+* {
+  scrollbar-width: 0px;
+}
+
+*::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
