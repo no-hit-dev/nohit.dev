@@ -117,8 +117,8 @@ function Navigation() {
   return (
     <nav className="mt-px font-display text-3xl sm:text-5xl font-medium tracking-tight text-white border-b border-neutral-800 mb-12">
       <NavigationRow>
-        <NavigationItem href="/work">Our Work</NavigationItem>
-        <NavigationItem href="/about">About Us</NavigationItem>
+        <NavigationItem href="/work">Nos réalisations</NavigationItem>
+        <NavigationItem href="/about">À propos</NavigationItem>
       </NavigationRow>
       <NavigationRow>
         <NavigationItem href="https://nohit.studio" target="blank">NO HIT Studio</NavigationItem>

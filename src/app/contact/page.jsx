@@ -1,3 +1,5 @@
+'use client'
+
 import { useId } from 'react'
 import Link from 'next/link'
 
@@ -6,23 +8,25 @@ import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
 import { PageIntro } from '@/components/PageIntro'
+import emailjs from '@emailjs/browser'
+import { Toaster, toast } from 'react-hot-toast'
 
 function TextInput({ label, as, ...props }) {
   let id = useId()
-  const component = as ?? 'input'
+  const Component = as ?? "input"
 
   return (
     <div className="group relative z-0 transition-all focus-within:z-10">
-      <component
+      <Component
         type="text"
         id={id}
         {...props}
         placeholder=" "
-        className="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
+        className="peer block w-full border border-neutral-300 bg-transparent px-6 py-4 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
       />
       <label
         htmlFor={id}
-        className="pointer-events-none absolute left-6 top-1/2 -mt-3 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950"
+        className={`pointer-events-none absolute left-6 ${Component === "textarea" ? 'top-6' : 'top-1/2'} -mt-3 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950`}
       >
         {label}
       </label>
@@ -32,46 +36,86 @@ function TextInput({ label, as, ...props }) {
 
 
 function ContactForm() {
+  const submitForm = async (event) => {
+    event.preventDefault();
+    const rawData = new FormData(document.getElementById('contactForm'));
+    const data = {};
+    for (const [name, value] of rawData)
+      data[name] = value
+
+    const fetchEMailjs = async (data) => {
+      try {
+        await emailjs.send(
+          "service_8x2epv9",
+          "template_qmmbr3g",
+          data,
+          "BqVIlSzqdQlYkdMPU"
+        );
+      } catch (err) {
+        console.log(err)
+        throw err;
+      }
+    }
+
+    toast.promise(fetchEMailjs(data), {
+      loading: 'Envoi en cours...',
+      success: 'Nous avons bien reçu votre demande !',
+      error: 'Une erreur est survenue.',
+    });
+    event.target.reset()
+  }
+
   return (
     <FadeIn className="lg:order-last">
-      <form>
+      <form onSubmit={e => submitForm(e)} id='contactForm'>
         <h2 className="font-display text-base font-semibold text-neutral-950">
           Work inquiries
         </h2>
         <div className="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
-          <TextInput label="Name" name="name" autoComplete="name" />
+          <TextInput label="Name" name="name" autoComplete="name" required />
           <TextInput
             label="Email"
             type="email"
             name="email"
             autoComplete="email"
+            required
           />
           <TextInput
             label="Company"
             name="company"
             autoComplete="organization"
+            required
           />
-          <TextInput label="Message" name="message" />
+          <TextInput as="textarea" rows={6} label="Message" name="message" required />
         </div>
-        <Button type="submit" className="mt-10">
+        <Button
+          type="submit"
+          className="mt-10"
+        >
           Let’s work together
         </Button>
       </form>
+      <Toaster
+        position="bottom-right"
+      />
     </FadeIn>
   )
 }
 
 function ContactDetails() {
+  const EMAILS = [
+    ['contact', 'contact@nohit.dev'],
+  ];
+
   return (
     <FadeIn>
+      <title>Nous contacter - NO HIT Dev</title>
       <Border className="mt-16 pt-16">
         <h2 className="font-display text-base font-semibold text-neutral-950">
-          Email us
+          Nous envoyer un email
         </h2>
         <dl className="mt-6 grid grid-cols-1 gap-8 text-sm sm:grid-cols-2">
-          {[
-            ['contact', 'contact@nohit.dev'],
-          ].map(([label, email]) => (
+          {EMAILS.map(([label, email]) => (
             <div key={email}>
               <dt className="font-semibold text-neutral-950">{label}</dt>
               <dd>
@@ -89,11 +133,6 @@ function ContactDetails() {
 
     </FadeIn>
   )
-}
-
-export const metadata = {
-  title: 'Nous contacter',
-  description: 'Let’s work together. We can’t wait to hear from you.',
 }
 
 export default function Contact() {

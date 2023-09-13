@@ -9,7 +9,7 @@ import { loadArticles } from '@/lib/mdx'
 
 function Culture() {
   return (
-    <div className="mt-24 rounded-4xl bg-neutral-950 py-24 sm:mt-32 lg:mt-40 lg:py-32">
+    <div className="rounded-4xl bg-neutral-950 py-20 mx-2 md:mx-8 lg:py-32 mt-24">
       <SectionIntro
         eyebrow="Our culture"
         title="Balance your passion with your passion for life."
@@ -40,7 +40,7 @@ function Culture() {
 }
 
 export const metadata = {
-  title: 'About Us',
+  title: 'À props',
   description:
     'We believe that our strength lies in our collaborative approach, which puts our clients at the center of everything we do.',
 }
@@ -50,7 +50,7 @@ export default async function About() {
 
   return (
     <>
-      <PageIntro eyebrow="About us" title="Our strength is collaboration">
+      <PageIntro eyebrow="À propos" title="Our strength is collaboration">
         <p>
           We believe that our strength lies in our collaborative approach, which
           puts our clients at the center of everything we do.

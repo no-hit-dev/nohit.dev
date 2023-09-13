@@ -8,7 +8,6 @@ import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
 import { PageIntro } from '@/components/PageIntro'
-import { Testimonial } from '@/components/Testimonial'
 import { formatDate } from '@/lib/formatDate'
 import { loadCaseStudies } from '@/lib/mdx'
 
@@ -84,7 +83,7 @@ function CaseStudies({ caseStudies }) {
 
 
 export const metadata = {
-  title: 'Our Work',
+  title: 'Nos réalisation',
   description:
     'We believe in efficiency and maximizing our resources to provide the best value to our clients.',
 }
@@ -95,7 +94,7 @@ export default async function Work() {
   return (
     <>
       <PageIntro
-        eyebrow="Our work"
+        eyebrow="Nos réalisation"
         title="Proven solutions for real-world problems."
       >
         <p>
@@ -106,14 +105,6 @@ export default async function Work() {
       </PageIntro>
 
       <CaseStudies caseStudies={caseStudies} />
-
-      <Testimonial
-        className="mt-24 sm:mt-32 lg:mt-40"
-        client={{ name: 'Mail Smirk', logo: logoMailSmirk }}
-      >
-        We approached <em>NO HIT Dev</em> because we loved their past work. They
-        delivered something remarkably similar in record time.
-      </Testimonial>
 
       <ContactSection />
     </>
