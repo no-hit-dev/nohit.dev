@@ -18,7 +18,7 @@ export default async function CaseStudyLayout({ caseStudy, children }) {
       <article className="mt-24 sm:mt-32 lg:mt-40">
         <header>
           <PageIntro eyebrow="Case Study" title={caseStudy.title} centered>
-            <p>{caseStudy.description}</p>
+            <p className="text-justify">{caseStudy.description}</p>
           </PageIntro>
 
           <FadeIn>
@@ -31,7 +31,7 @@ export default async function CaseStudyLayout({ caseStudy, children }) {
                       <dd>{caseStudy.client}</dd>
                     </div>
                     <div className="border-t border-neutral-200 px-6 py-4 first:border-t-0 sm:border-l sm:border-t-0">
-                      <dt className="font-semibold">Year</dt>
+                      <dt className="font-semibold">Année</dt>
                       <dd>
                         <time dateTime={caseStudy.date.split('-')[0]}>
                           {caseStudy.date.split('-')[0]}
@@ -71,7 +71,7 @@ export default async function CaseStudyLayout({ caseStudy, children }) {
       {moreCaseStudies.length > 0 && (
         <PageLinks
           className="mt-24 sm:mt-32 lg:mt-40"
-          title="More case studies"
+          title="D'autre cas"
           pages={moreCaseStudies}
         />
       )}

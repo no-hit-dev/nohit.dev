@@ -7,13 +7,16 @@ import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import { List, ListItem } from '@/components/List'
 import { SectionIntro } from '@/components/SectionIntro'
 import { StylizedImage } from '@/components/StylizedImage'
-import { Testimonial } from '@/components/Testimonial'
 import { GridList, GridListItem } from '@/components/GridList'
-import logoPhobiaDark from '@/images/clients/phobia/logo-dark.svg' // testimonials
+import epitech from '@/images/clients/epitech/logo-white.webp'
+import isg from '@/images/clients/isg/logo-white.webp'
+import supinfo from '@/images/clients/supinfo/logo-white.webp'
+import imela from '@/images/clients/imela/logo-white.webp'
+import maskott from "@/images/clients/maskott/logo-white.webp"
+import rosette from "@/images/clients/rosette/logo-white.webp"
 import imageLaptop from '@/images/laptop.jpg'
 import { loadCaseStudies } from '@/lib/mdx'
 import NOHITDev from "@/images/logo/NOHITDev.svg"
-import { GrayscaleTransitionImage } from '@/components/GrayscaleTransitionImage'
 
 function Culture() {
   return (
@@ -68,7 +71,7 @@ function CaseStudies({ caseStudies }) {
                     <Image
                       src={caseStudy.logo}
                       alt={caseStudy.client}
-                      className="h-16 w-16"
+                      className="h-8 w-auto max-w-12"
                       unoptimized
                     />
                   </Link>
@@ -83,7 +86,7 @@ function CaseStudies({ caseStudies }) {
                   <span className="text-neutral-300" aria-hidden="true">
                     /
                   </span>
-                  <span>Etude de cas</span>
+                  <span>Étude de cas</span>
                 </p>
                 <p className="mt-6 font-display text-2xl font-semibold text-neutral-950">
                   {caseStudy.title}
@@ -100,6 +103,44 @@ function CaseStudies({ caseStudies }) {
   )
 }
 
+const clients = [
+  ['Epitech', epitech],
+  ['Supinfo', supinfo],
+  ['Imela', imela],
+  ['ISG', isg],
+  ['Maskott', maskott],
+  ['Rosette', rosette],
+]
+
+function Clients() {
+  return (
+    <div className="mt-24 rounded-4xl bg-neutral-950 py-20 sm:mt-32 sm:py-32 lg:mt-56 md:mx-8">
+      <Container>
+        <FadeIn className="flex items-center gap-x-8">
+          <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
+            Nous travaillons avec de formidables entreprises
+          </h2>
+          <div className="h-px flex-auto bg-neutral-800" />
+        </FadeIn>
+        <FadeInStagger faster>
+          <ul
+            role="list"
+            className="mt-10 grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4"
+          >
+            {clients.map(([client, logo]) => (
+              <li key={client} className='flex justify-center items-center'>
+                <FadeIn>
+                  <Image src={logo} alt={client} unoptimized height={120} className='max-w-[250px]' />
+                </FadeIn>
+              </li>
+            ))}
+          </ul>
+        </FadeInStagger>
+      </Container>
+    </div >
+  )
+}
+
 function Services() {
   return (
     <>
@@ -109,7 +150,6 @@ function Services() {
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
-          {/* Notre engagement consiste à vous soutenir activement dans le processus d'identification, d'exploration approfondie et de réponse adaptée à toutes les nouvelles opportunités qui se présentent à vous." */}
           Catalysez votre succès grâce à la diversité de nos prestations.
         </p>
       </SectionIntro>
@@ -167,20 +207,21 @@ export default async function Home() {
             <p>Une expertise Web et graphique à votre service.</p>
           </h1>
           <p className="mt-6 max-w-3xl text-xl text-neutral-600">
-           NO HIT Dev est une coopération entre deux indépendants, Théo et Bruno, travaillant en synergie afin de mettre à votre disposition efficacement et simplement leurs expertises respectives.
+            NO HIT Dev est une coopération entre deux indépendants, Théo et Bruno, travaillant en synergie afin de mettre à votre disposition efficacement et simplement leurs expertises respectives.
           </p>
         </FadeIn>
       </Container>
       <Culture />
       <Services />
-      <Testimonial
+      {/* <Testimonial
         className="mt-24 sm:mt-32 lg:mt-40"
         client={{ name: 'Phobia', logo: logoPhobiaDark }}
       >
         The team at NO HIT Dev went above and beyond with our onboarding, even
         finding a way to access the user’s microphone without triggering one of
         those annoying permission dialogs.
-      </Testimonial>
+      </Testimonial> */}
+      <Clients />
       <CaseStudies caseStudies={caseStudies} />
       <ContactSection />
     </>

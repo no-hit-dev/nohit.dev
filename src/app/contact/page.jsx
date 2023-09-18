@@ -45,12 +45,14 @@ function ContactForm() {
 
     const fetchEMailjs = async (data) => {
       try {
-        await emailjs.send(
+        const { status } = await emailjs.send(
           "service_8x2epv9",
           "template_qmmbr3g",
           data,
           "BqVIlSzqdQlYkdMPU"
         );
+        if (status !== 200)
+          throw "Err"
       } catch (err) {
         console.log(err)
         throw err;
@@ -69,7 +71,7 @@ function ContactForm() {
     <FadeIn className="lg:order-last">
       <form onSubmit={e => submitForm(e)} id='contactForm'>
         <h2 className="font-display text-base font-semibold text-neutral-950">
-          Work inquiries
+          Informations obligatoires
         </h2>
         <div className="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
           <TextInput label="Name" name="name" autoComplete="name" required />
@@ -78,7 +80,6 @@ function ContactForm() {
             type="email"
             name="email"
             autoComplete="email"
-            required
           />
           <TextInput
             label="Company"
@@ -92,7 +93,7 @@ function ContactForm() {
           type="submit"
           className="mt-10"
         >
-          Let’s work together
+          Envoyer
         </Button>
       </form>
       <Toaster
